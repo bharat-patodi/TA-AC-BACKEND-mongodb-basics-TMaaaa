@@ -3,7 +3,9 @@ writeCode
 Write code to execute below expressions.
 
 1. Create a database named `blog`.
+<!-- use blog -->
 2. Create a collection called 'articles'.
+<!-- db.createCollection("articles") -->
 3. Insert multiple documents(at least 3) into articles. It should have fields
 
 - title as string
@@ -16,6 +18,48 @@ Write code to execute below expressions.
     - age
     - example author: {name: 'abc', email: 'abc@gmail', age: 25}
 - tags : Array of strings like ['html', 'css']
+
+<!--
+let articleList = [
+  {
+  _id: 1234,
+  title: 'Article One',
+  details: 'This is article number One. One is always tasty.',
+  author: {
+    name: 'Boot',
+    email: 'boot@gmail.com',
+    age: 31
+  },
+  tags: ['one', 'highest']
+  },
+
+  {
+  _id: 1235,
+  title: 'Article Two',
+  details: 'This is article number Two. Two is always tasty.',
+  author: {
+    name: 'sweetha',
+    email: 'sweetha@gmail.com',
+    age: 23
+  },
+  tags: ['Two', 'lowest']
+  },
+
+  {
+  _id: 1236,
+  title: 'Article Three',
+  details: 'This is article number Three. Three is always tasty.',
+  author: {
+    name: 'Uriko',
+    email: 'uriko@gmail.com',
+    age: 25
+  },
+  tags: ['Three', 'highest']
+  },
+];
+
+db.articles.insert(articleList);
+ -->
 
 ```js
 // An article should look like in the database
@@ -33,19 +77,33 @@ Write code to execute below expressions.
 ```
 
 4. Find all the articles using `db.COLLECTION_NAME.find()`
+<!-- db.articles.find() -->
 5. Find a document using \_id field.
+<!-- db.articles.find({_id: 1234}) -->
 6. 1. Find documents using title
+   <!-- db.articles.find({title: "Article Two"}) -->
 7. 2. Find documents using author's name field.
+   <!-- db.articles.find({"author.name": "Uriko"}) -->
 8. Find document using a specific tag.
-
+<!-- db.articles.find({"tags": {$in: ["Three"]}}) -->
 9. Update title of a document using its \_id field.
+<!-- db.articles.update({id: 2345}, {title: "Article Two!!"}) -->
 10. Update a author's name using article's title.
+<!-- db.articles.update({title: "Article One"}, {$set: {"author.name": "Boss"}}) -->
 11. rename details field to description from all articles in articles collection.
+<!-- db.articles.updateMany({}, {$rename: {"details": "description"}}) -->
 12. Add additional tag in a specific document.
-
+<!-- db.articles.update({_id: 1234}, {$push: {"tags": "newTag"}}) -->
 13. Update an article's title using $set and without $set.
+    <!-- Using $set: db.articles.update({title: "Article One"}, {$set: {"title": "Article 1"}}) -->
+    <!-- Without $set:
+
+db.articles.update({title: "Article 1"}, {"title": "Article 1", "\_id" : 1234, "title" : "Article One", "author" : { "name" : "Boss", "email" : "boot@gmail.com", "age" : 31 }, "tags" : [ "one", "highest", "newTag" ], "description" : "This is article number One."})
+
+-->
 
 - Write the differences here ?
+<!-- Had to include all the other values when not using $set -->
 
 13. find an article using title and increment it's auhtor's age by 5.
 
