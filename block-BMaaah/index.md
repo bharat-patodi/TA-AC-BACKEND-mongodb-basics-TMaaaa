@@ -97,17 +97,16 @@ db.articles.insert(articleList);
 13. Update an article's title using $set and without $set.
     <!-- Using $set: db.articles.update({title: "Article One"}, {$set: {"title": "Article 1"}}) -->
     <!-- Without $set:
-
-db.articles.update({title: "Article 1"}, {"title": "Article 1", "\_id" : 1234, "title" : "Article One", "author" : { "name" : "Boss", "email" : "boot@gmail.com", "age" : 31 }, "tags" : [ "one", "highest", "newTag" ], "description" : "This is article number One."})
-
--->
+    db.articles.update({title: "Article 1"}, {"title": "Article 1", "\_id" : 1234, "title" : "Article One", "author" : { "name" : "Boss", "email" : "boot@gmail.com", "age" : 31 }, "tags" : [ "one", "highest", "newTag" ], "description" : "This is article number One."}) -->
 
 - Write the differences here ?
 <!-- Had to include all the other values when not using $set -->
 
 13. find an article using title and increment it's auhtor's age by 5.
+<!-- db.articles.update({title: "Article One"}, {$inc: {"author.age": 5}}) -->
 
 14. Delete a document using \_id field with `db.COLLECTION_NAME.remove()`.
+<!-- db.articles.remove({"_id": 1235}) -->
 
 // Sample data
 
@@ -226,6 +225,10 @@ db.users.insertMany([
 Insert above data into database to perform below queries:-
 
 - Find all males who play cricket.
+<!-- db.users.find({$and: [{"gender": "Male"}, {"sports": "cricket"}]}) -->
 - Update user with extra golf field in sports array whose name is "Steve Ortega".
+<!-- db.users.update({"name": "Steve Ortega"}, {$push: {sports: "golf"}}) -->
 - Find all users who play either 'football' or 'cricket'.
+<!-- db.users.find({$or: [{"sports": "football"}, {"sports": "cricket"}]}) -->
 - Find all users whose name includes 'ri' in their name.
+<!-- db.users.find({"name": /ri/}) -->
